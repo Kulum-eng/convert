@@ -7,32 +7,40 @@ const Convert = () => {
   const [binary, setBinary] = useState('');
 
   const handleConvert = () => {
-    // Verifica si el valor ingresado es un número
     const number = parseInt(inputText, 10);
+
     if (!isNaN(number)) {
-      // Si es un número, lo convierte a hexadecimal y binario
       const hex = `0x${number.toString(16).toUpperCase()}`;
       setHexadecimal(hex);
-      
+
       const bin = number.toString(2);
       setBinary(bin);
-    } else {
-      // Si no es un número, convierte cada carácter de texto a hexadecimal
+    } 
+    //  si el input es hexadecimal
+    else if (/^0x[0-9A-Fa-f]+$/.test(inputText.trim())) {
+      const hexValue = inputText.trim();
+      setHexadecimal(hexValue.toUpperCase());
+
+      const bin = parseInt(hexValue, 16).toString(2);
+      setBinary(bin);
+    } 
+    // Si es texto 
+    else {
       const hex = inputText
         .split('')
-        .map(char => char.charCodeAt(0).toString(16).toUpperCase())
+        .map((char) => char.charCodeAt(0).toString(16).toUpperCase())
         .join(' ');
       setHexadecimal(hex);
-      
-      setBinary(''); // Limpiar el valor binario si se ingresa texto
+
+      setBinary('');
     }
   };
 
   return (
     <div className="convert-page">
-      <h1>Conversor de Números y Texto</h1>
+      <h1>Conversor de Números, Texto y Hexadecimal</h1>
       <textarea
-        placeholder="Escribe un número o texto aquí..."
+        placeholder="Escribe un número, texto o hexadecimal aquí..."
         value={inputText}
         onChange={(e) => setInputText(e.target.value)}
         rows={5}

@@ -1,11 +1,11 @@
-
-import Mapa from "./pages/convertidor/Convert";
+import React from "react";
+import Convert from "./pages/convertidor/Convert";
 
 const App = () => {
   return (
     <div>
-      <h1>Mapa en React</h1>
-      <Mapa />
+      <h1>convert</h1>
+      <Convert />
     </div>
   );
 };
